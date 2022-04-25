@@ -6,6 +6,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
     private bool stayOnTrigger = false;
+    public GameObject inventoryWindow;
 
     public void OnTriggerStay2D(Collider2D NPC)
     {
@@ -20,7 +21,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (stayOnTrigger)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && (inventoryWindow.activeSelf == false))
             {
                 FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
             }

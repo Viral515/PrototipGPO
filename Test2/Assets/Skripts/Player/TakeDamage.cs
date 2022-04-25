@@ -8,21 +8,20 @@ public class TakeDamage : MonoBehaviour
 {
     public GameObject player;
     private float damage = 0.1f;
-    PlayerInfo hp;
+    PlayerInfo playerStats;
     private bool takeDamage = false;
 
     public Image hpBar;
-    public Image manaBar;
 
     private void Start()
     {
-        hp = FindObjectOfType<PlayerInfo>();
+        playerStats = FindObjectOfType<PlayerInfo>();
     }
     void CheckHp()
     {
-        float newScale = hp.hp / hp.maxHp;
+        float newScale = playerStats.hp / playerStats.maxHp;
         hpBar.fillAmount = newScale;
-        if (hp.hp == 0)
+        if (playerStats.hp == 0)
         {
             Death();
         }
@@ -39,7 +38,7 @@ public class TakeDamage : MonoBehaviour
         {
             if ((player.transform.position.y < 1.5) && (player.transform.position.y > 0.5))
             {
-                hp.hp -= damage;
+                playerStats.hp -= damage;
                 takeDamage = true;
             }
             else
@@ -51,9 +50,9 @@ public class TakeDamage : MonoBehaviour
         {
             takeDamage = false;
         }
-        if (hp.hp < 0)
+        if (playerStats.hp < 0)
         {
-            hp.hp = 0;
+            playerStats.hp = 0;
         }
     }
 
@@ -63,12 +62,12 @@ public class TakeDamage : MonoBehaviour
         {
             return;
         }
-        if (hp.hp < hp.maxHp)
+        if (playerStats.hp < playerStats.maxHp)
         {
-            hp.hp += 0.005f;
-            if (hp.hp > hp.maxHp)
+            playerStats.hp += 0.005f;
+            if (playerStats.hp > playerStats.maxHp)
             {
-                hp.hp = hp.maxHp;
+                playerStats.hp = playerStats.maxHp;
             }
         }
     }
