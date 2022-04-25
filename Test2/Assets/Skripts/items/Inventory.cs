@@ -9,19 +9,18 @@ public class Inventory : MonoBehaviour
     public List<ItemInventory> items = new List<ItemInventory>();
     public int maxCount;
     private int maxCountOfStack = 128;
+    public int currentID;
+    private bool pauseGame = false;
     public GameObject gameObjectShow;
-    public DataBase data;
-
+    public GameObject backGround;
+    public GameObject dialogueSpace;
     public GameObject inventoryMainObject;
-
+    public DataBase data;
     public Camera cam;
     public EventSystem eventSystem;
-    public int currentID;
     public ItemInventory currentItem;
     public RectTransform movingObject;
     public Vector3 offset;
-
-    public GameObject backGround;
 
     public void Start()
     {
@@ -46,8 +45,18 @@ public class Inventory : MonoBehaviour
         }
 
         //открытие/закрытие инвентаря
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && (dialogueSpace.activeSelf == false))
         {
+            if (pauseGame == false)
+            {
+                Time.timeScale = 0.0f;
+                pauseGame = true;
+            }
+            else
+            {
+                Time.timeScale = 1.0f;
+                pauseGame = false;
+            }
             backGround.SetActive(!backGround.activeSelf);
             if (backGround.activeSelf)
             {
@@ -92,6 +101,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //добавление слота в панель инвентаря
     public void AddItem(int id, Item item, int count)
     {
         items[id].id = item.id;
@@ -109,6 +119,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //добавление предмета в один из слотов инвентаря
     public void AddInventoryItem(int id, ItemInventory inventoryItem)
     {
         items[id].id = inventoryItem.id;
@@ -146,6 +157,7 @@ public class Inventory : MonoBehaviour
 
             Button temporaryButton = newItem.GetComponent<Button>();
 
+            //???
             temporaryButton.onClick.AddListener(delegate { SelectObject(); });
 
             items.Add(itemInventory);

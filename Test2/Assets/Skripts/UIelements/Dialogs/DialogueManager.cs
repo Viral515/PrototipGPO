@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public bool pauseGame = false;
     public GameObject dialogueSpace;
     public Text dialogueText;
     public Text nameText;
@@ -25,7 +24,6 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueSpace.SetActive(true);
         Time.timeScale = 0.0f;
-        pauseGame = true;
 
         nextButton.SetActive(true);
         endButton.SetActive(false);
@@ -72,6 +70,5 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueSpace.SetActive(false);
         Time.timeScale = 1.0f;
-        pauseGame = false;
     }
 }

@@ -6,18 +6,19 @@ using UnityEngine.UI;
 public class SkillHeal : MonoBehaviour
 {
     public GameObject player;
-    PlayerInfo hp;
+    PlayerInfo playerStats;
 
     public float maxCooldown;
     float cooldown;
     public float healCount;
+    public float manaCost;
 
     public Image healSkill;
 
     // Start is called before the first frame update
     void Start()
     {
-        hp = FindObjectOfType<PlayerInfo>();
+        playerStats = FindObjectOfType<PlayerInfo>();
     }
 
     // Update is called once per frame
@@ -43,17 +44,22 @@ public class SkillHeal : MonoBehaviour
 
     void UseSkill()
     {
-        if (cooldown < maxCooldown)
+        if ((cooldown < maxCooldown) || (playerStats.mana < manaCost))
         {
             return;
         }
 
         cooldown = 0f;
-        hp.hp += healCount;
-        if (hp.hp > hp.maxHp)
+
+        playerStats.mana -= manaCost;
+        if (playerStats.mana < 0f)
         {
-            hp.hp = hp.maxHp;
+            playerStats.mana = 0f;
         }
-        Debug.Log(hp.hp);
+        playerStats.hp += healCount;
+        if (playerStats.hp > playerStats.maxHp)
+        {
+            playerStats.hp = playerStats.maxHp;
+        }
     }
 }
