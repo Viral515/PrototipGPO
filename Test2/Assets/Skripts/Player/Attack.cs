@@ -11,7 +11,7 @@ public class Attack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && Time.timeScale == 1.0f)
         {
             Shoot();
         }

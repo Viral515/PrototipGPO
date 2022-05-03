@@ -27,11 +27,9 @@ public class DialogueManager : MonoBehaviour
 
         nextButton.SetActive(true);
         endButton.SetActive(false);
-
-        nameText.text = dialogue.name;
         sentences.Clear();
 
-        foreach (string sentence in dialogue.sentences)
+        foreach (string sentence in dialogue.sentencesAndNames)
         {
             sentences.Enqueue(sentence);
         }
@@ -51,8 +49,10 @@ public class DialogueManager : MonoBehaviour
             EndDialogue();
             return;
         }
+        string name = sentences.Dequeue();
         string sentence = sentences.Dequeue();
         StopAllCoroutines();
+        nameText.text = name;
         StartCoroutine(TypeSentence(sentence));
     }
 
