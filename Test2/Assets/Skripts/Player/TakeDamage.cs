@@ -17,6 +17,20 @@ public class TakeDamage : MonoBehaviour
     {
         playerStats = FindObjectOfType<PlayerInfo>();
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "DamageFences")
+        {
+            takeDamage = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.name == "DamageFences")
+        {
+            takeDamage = false;
+        }
+    }
     void CheckHp()
     {
         float newScale = playerStats.hp / playerStats.maxHp;
@@ -34,22 +48,11 @@ public class TakeDamage : MonoBehaviour
 
     void DamageValue()
     {
-        if ((player.transform.position.x < -4) && (player.transform.position.x > -5))
+        if (takeDamage == true)
         {
-            if ((player.transform.position.y < 1.5) && (player.transform.position.y > 0.5))
-            {
-                playerStats.hp -= damage;
-                takeDamage = true;
-            }
-            else
-            {
-                takeDamage = false;
-            }
+            playerStats.hp -= damage;
         }
-        else
-        {
-            takeDamage = false;
-        }
+
         if (playerStats.hp < 0)
         {
             playerStats.hp = 0;

@@ -8,6 +8,7 @@ public class Attack : MonoBehaviour
     public GameObject bulletPrefab;
 
     public float bulletForce = 10f;
+    public float typeOfAttack = 1;
 
     void Update()
     {
@@ -20,7 +21,12 @@ public class Attack : MonoBehaviour
     void Shoot()
     {
         //создание экземпляра пули и придание ему ускорения
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Quaternion a = firePoint.rotation;
+        if (typeOfAttack == 1)
+        {
+            a.eulerAngles += new Vector3(0, 0, 90);
+        }
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, a);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
     }

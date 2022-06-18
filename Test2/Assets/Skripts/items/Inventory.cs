@@ -45,7 +45,7 @@ public class Inventory : MonoBehaviour
         }
 
         //открытие/закрытие инвентаря
-        if (Input.GetKeyDown(KeyCode.I) && (dialogueSpace.activeSelf == false))
+        if (Input.GetKeyDown(KeyCode.Z) && (dialogueSpace.activeSelf == false))
         {
             if (pauseGame == false)
             {
